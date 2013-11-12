@@ -11,7 +11,7 @@ backup_and_link = \
 
 install: configure
 
-configure: configure-ack configure-bash configure-zsh configure-gem configure-git configure-irb configure-pry configure-tmux configure-vim
+configure: configure-ack configure-bash configure-zsh configure-gem configure-git configure-irb configure-pry configure-tmux configure-vim configure-dotemacs
 
 create-backup: 
 	mkdir -p $(bak_dir)
@@ -33,7 +33,7 @@ configure-irb: create-backup
 	$(call backup_and_link,irb/irbrc,.irbrc)
 
 configure-pry: create-backup
-$(call backup_and_link,pry/pryrc,.pryrc)
+	$(call backup_and_link,pry/pryrc,.pryrc)
 
 # We don't backup_and_link rbenv if it's already there. Backing this up would move all your ruby shims.
 # TODO: we should still link rbenv to `dotfiles` if there's no rbenv to be found, so that we can run `make configure-rbenv` to upgrade.
@@ -59,6 +59,9 @@ configure-zsh: create-backup
 		cp -r `pwd`/zsh/oh-my-zsh $(HOME)/.oh-my-zsh; \
 	fi;
 	$(call backup_and_link,zsh/zshrc,.zshrc)
+
+configure-dotemacs: update-submodules
+	$(MAKE) -C dotemacs
 
 update-submodules:
 	git submodule init
