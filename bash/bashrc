@@ -1,0 +1,25 @@
+# general
+alias la="ls -lach"
+alias lsd="ls | grep ^d"
+
+# git aliases
+alias gst='git status'
+alias gl='git pull'
+alias gp='git push'
+alias gd='git diff | mate'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gb='git branch'
+alias gba='git branch -a'
+alias glg='git log --pretty=oneline'
+
+# paths -------------------------------------------------------
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+# rbenv
+eval "$(rbenv init -)"
+
+export PATH="/Users/kitallis/.rbenv/bin:/Users/kitallis/.rbenv/shims:/Users/kitallis/.rbenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/kitallis/android-sdk-macosx/tools:/Users/kitallis/android-sdk-macosx/platform-tools"
+eval "$(rbenv init -)"
