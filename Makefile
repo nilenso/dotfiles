@@ -1,6 +1,7 @@
 bak_timestamp = $(shell date +%s)
 bak_dir = $(HOME)/.dotfiles.bak/$(bak_timestamp)
 
+# TODO: Separate backup and link
 backup_and_link = \
 	if [ -f $(HOME)/$(2) -o -d $(HOME)/$(2) -o -L $(HOME)/$(2) ] ; then \
 		cp -RLH $(HOME)/$(2) $(bak_dir)/$(2); \
@@ -32,10 +33,15 @@ configure-irb: create-backup
 	$(call backup_and_link,irb/irbrc,.irbrc)
 
 configure-pry: create-backup
-	$(call backup_and_link,pry/pryrc,.pryrc)
+$(call backup_and_link,pry/pryrc,.pryrc)
 
+# We don't backup_and_link rbenv if it's already there. Backing this up would move all your ruby shims.
+# TODO: we should still link rbenv to `dotfiles` if there's no rbenv to be found, so that we can run `make configure-rbenv` to upgrade.
+# For that to work, backup_and_link needs to be split into 2, so that we can only call link.
 configure-rbenv: update-submodules create-backup
-	$(call backup_and_link,rbenv/rbenv,.rbenv)
+	if [ ! -d $(HOME)/.rbenv ]; then \
+		cp -r `pwd`/rbenv/rbenv $(HOME)/.rbenv; \
+	fi;
 	echo 'export PATH="$(HOME)/.rbenv/bin:$(PATH)"' >> ~/.bashrc
 	echo 'export PATH="$(HOME)/.rbenv/bin:$(PATH)"' >> ~/.zshrc
 	echo 'eval "$$(rbenv init -)"' >> ~/.bashrc
