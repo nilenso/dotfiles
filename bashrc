@@ -21,3 +21,6 @@ export PATH="$HOME/bin:$PATH"
 # rbenv
 eval "$(rbenv init -)"
 
+
+# added by travis gem
+[ -f /Users/srushti/.travis/travis.sh ] && source /Users/srushti/.travis/travis.sh

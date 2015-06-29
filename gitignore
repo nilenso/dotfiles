@@ -3,6 +3,7 @@ ncscope.*
 tags
 .DS_Store
 tmtags
+.tm_properties
 .bundle
 .idea/workspace.xml
 .idea
@@ -11,3 +12,5 @@ tmtags
 *.sublime-workspace
 zeus.json
 custom_plan.rb
+.nvmrc
+.vagrant

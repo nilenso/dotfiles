@@ -2,6 +2,10 @@
 --ignore-dir=coverage
 --ignore-dir=log
 --ignore-dir=tmp
+--ignore-dir=.tmp
+--ignore-dir=dist/scripts
+--ignore-dir=.sass-cache
+--ignore-dir=bower_components
 --ignore-file=is:tags
 --ignore-file=match:/cscope/
 --smart-case

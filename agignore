@@ -1,0 +1,8 @@
+.idea/
+coverage/
+log/
+tmp/
+tags
+cscope.*
+vendor/assets/components/
+public/styleguide

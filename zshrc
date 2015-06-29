@@ -36,8 +36,7 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rbenv ruby gem rails brew bundler)
-
+plugins=(git rbenv ruby gem rails brew osx bundler npm tmuxinator)
 
 DISABLE_UPDATE_PROMPT=true # will auto update without prompt
 #DISABLE_AUTO_UPDATE="true" # will disable auto updates entirely
@@ -46,7 +45,7 @@ source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
 # aliases -----------------------------------------------------
 alias drm='cd ~/code/rubymonk'
@@ -77,14 +76,17 @@ alias .......='cd ../../../../../..'
 alias ll="ls -l"
 if which brew &> /dev/null; then
   alias i="brew install"
+  alias up-all="brew upgrade --all"
   alias up="brew upgrade"
-else if which apt-get &> /dev/null; then
-    alias i="sudo apt-get install"
-    alias up="sudo apt-get upgrade"
-  fi fi
+  alias un="brew uninstall"
+elif which apt-get &> /dev/null; then
+  alias i="sudo apt-get install"
+  alias up="sudo apt-get upgrade"
+  alias up-all=up
+  alias un="sudo apt-get remove"
+fi
 alias gi="gem install"
-alias ctags="/usr/local/Cellar/ctags/5.8/bin/ctags"
-alias refreshctags="ctags -f tags --recurse=yes . && find . -name '*.rb' -o -name '*.java' -o -name '*.cs' -o -name '*.js' -o -name '*.haml' -o -name '*.erb' -o -name '*.coffee' >| cscope.files && cscope -b -q"
+alias refreshctags="ack -f | ctags -L - && ack -f >| cscope.files && cscope -b -q"
 alias sp=spork
 alias r=rake
 alias b=bundle
@@ -113,13 +115,15 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="./bin:$PATH"
 
+export PATH="./node_modules/.bin:$PATH"
+
 alias vi=vim
 alias ep="vim ~/.zshrc && source ~/.zshrc"
 alias eplocal="vim ~/.zshrc.local && source ~/.zshrc.local"
 export EDITOR="vim"
 if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
   alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-  export EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim"
+  export EDITOR="vim"
   export GIT_EDITOR=$EDITOR
 fi
 
@@ -139,7 +143,12 @@ if [ -d ~/.soft_links ]; then
   done
 fi
 
+title_manual() {
+  print -Pn "\e]1;$1\a"
+}
+
 # rbenv
+export RBENV_ROOT=$HOME/.rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export PATH=./bin:~/.bin:$PATH
@@ -148,3 +157,10 @@ export JRUBY_OPTS=--1.9
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+which thefuck > /dev/null 2>&1 && alias fuck='eval $(thefuck $(fc -ln -1))'
+
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
+
+# added by travis gem
+[ -f /Users/srushti/.travis/travis.sh ] && source /Users/srushti/.travis/travis.sh

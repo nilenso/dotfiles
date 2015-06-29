@@ -1,0 +1,2 @@
+tag_hook.rb -i
+git_shots_hook.rb -i
