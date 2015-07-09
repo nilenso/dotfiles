@@ -49,7 +49,7 @@ unsetopt correct_all
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
 # aliases -----------------------------------------------------
-alias drm='cd ~/code/rubymonk'
+alias emacs="open -na /Applications/Emacs.app/Contents/MacOS/Emacs ."
 
 # general
 alias la="ls -lach"
